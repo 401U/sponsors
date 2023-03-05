@@ -40,7 +40,7 @@ jobs:
 
       - name: Install fonts
         run: |
-          makedir -p $HOME/share/fonts/LXGWWenkai/
+          mkdir -p $HOME/share/fonts/LXGWWenkai/
           cp fonts/*.ttf $HOME/share/fonts/LXGWWenkai/
           sudo fc-cache -fv
 
