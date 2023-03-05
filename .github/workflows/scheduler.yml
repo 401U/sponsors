@@ -40,9 +40,11 @@ jobs:
 
       - name: Install fonts
         run: |
-          mkdir -p $HOME/share/fonts/LXGWWenkai/
-          cp fonts/*.ttf $HOME/share/fonts/LXGWWenkai/
+          sudo mkdir -p /usr/share/fonts/TTF/
+          sudo cp fonts/*.ttf /usr/share/fonts/TTF/
           sudo fc-cache -fv
+          fc-list | grep LXGW
+        shell: bash
 
       - name: Update sponsors
         run: npm run build
