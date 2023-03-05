@@ -25,7 +25,7 @@ jobs:
         uses: actions/cache@v3
         id: cache-fonts
         with:
-          path: ~/share/fonts/LXGWWenKai/
+          path: ~/share/fonts/LXGWWenKai/*.ttf
           key: font-lxgw-wenkai
           
       - name: Download fonts
