@@ -36,7 +36,7 @@ jobs:
           fileName: "*.ttf"
           tarBall: false
           zipBall: false
-          outfilePath: ~/share/fonts/LXGWWenKai/
+          out-file-path: ~/share/fonts/LXGWWenKai/
 
       - name: Install fonts
         run: sudo fc-cache -fv
