@@ -24,7 +24,7 @@ jobs:
         uses: actions/cache@v3
         id: cache-fonts
         with:
-          path: $HOME/share/fonts/LXGWWenKai/
+          path: fonts/
           key: font-lxgw-wenkai
 
       - name: Download fonts
@@ -36,10 +36,13 @@ jobs:
           fileName: "*.ttf"
           tarBall: false
           zipBall: false
-          out-file-path: $HOME/share/fonts/LXGWWenKai/
+          out-file-path: fonts/
 
       - name: Install fonts
-        run: sudo fc-cache -fv
+        run: |
+          makedir -p $HOME/share/fonts/LXGWWenkai/
+          cp fonts/*.ttf $HOME/share/fonts/LXGWWenkai/
+          sudo fc-cache -fv
 
       - name: Update sponsors
         run: npm run build
