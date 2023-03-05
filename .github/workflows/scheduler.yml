@@ -21,15 +21,15 @@ jobs:
 
       - run: npx pnpm i
 
-      - name: Use cached fonts
-        uses: actions/cache/restore@v3
+      - name: Cached fonts
+        uses: actions/cache@v3
         id: cache-fonts
         with:
           path: ~/share/fonts/LXGWWenKai/
           key: font-lxgw-wenkai
           
       - name: Download fonts
-        if: steps.cache-font.outputs.cache-hit != 'true'
+        if: steps.cache-fonts.outputs.cache-hit != 'true'
         uses: robinraju/release-downloader@v1.7
         with:
           repository: lxgw/LxgwWenKai
@@ -38,13 +38,6 @@ jobs:
           tarBall: false
           zipBall: false
           outfilePath: ~/share/fonts/LXGWWenkai/
-      
-      - name: Update cache
-        if: steps.cache-font.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v3
-        with:
-          path: ~/share/fonts/LXGWWenKai/
-          key: font-lxgw-wenkai
           
       - name: Install fonts
         run: sudo fc-cache -fv
@@ -58,7 +51,7 @@ jobs:
       - name: Commit
         uses: EndBug/add-and-commit@v4
         with:
-          message: "chore: update sponsors.svg"
+          message: "chore: update sponsors"
           add: "sponsors.*"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
