@@ -11,6 +11,7 @@ jobs:
   update-sponsors:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/cache@v3
       - uses: actions/checkout@v2
 
       - name: Set node
@@ -20,8 +21,33 @@ jobs:
 
       - run: npx pnpm i
 
-      - name: Install CJK fonts
-        uses: RisingInIris2017/cjk-fonts-action@v1
+      - name: Use cached fonts
+        uses: actions/cache/restore@v3
+        id: cache-fonts
+        with:
+          path: ~/share/fonts/LXGWWenKai/
+          key: font-lxgw-wenkai
+          
+      - name: Download fonts
+        if: steps.cache-font.outputs.cache-hit != 'true'
+        uses: robinraju/release-downloader@v1.7
+        with:
+          repository: lxgw/LxgwWenKai
+          tag: v1.250
+          fileName: "*.ttf"
+          tarBall: false
+          zipBall: false
+          outfilePath: ~/share/fonts/LXGWWenkai/
+      
+      - name: Update cache
+        if: steps.cache-font.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v3
+        with:
+          path: ~/share/fonts/LXGWWenKai/
+          key: font-lxgw-wenkai
+          
+      - name: Install fonts
+        run: sudo fc-cache -fv
 
       - name: Update sponsors
         run: npm run build
