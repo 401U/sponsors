@@ -3,9 +3,9 @@ name: Scheduler
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: "0 0 * * *"
   push:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   update-sponsors:
@@ -25,9 +25,9 @@ jobs:
         uses: actions/cache@v3
         id: cache-fonts
         with:
-          path: ~/share/fonts/LXGWWenKai/*.ttf
-          key: font-lxgw-wenkai
-          
+          path: ~/share/fonts/LXGWWenKai/
+          key: font-lxgw-wenkai-${{ runner.os }}
+
       - name: Download fonts
         if: steps.cache-fonts.outputs.cache-hit != 'true'
         uses: robinraju/release-downloader@v1.7
@@ -37,8 +37,8 @@ jobs:
           fileName: "*.ttf"
           tarBall: false
           zipBall: false
-          outfilePath: ~/share/fonts/LXGWWenkai/
-          
+          outfilePath: ~/share/fonts/LXGWWenKai/
+
       - name: Install fonts
         run: sudo fc-cache -fv
 
