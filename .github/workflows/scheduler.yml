@@ -20,6 +20,9 @@ jobs:
 
       - run: npx pnpm i
 
+      - name: Install CJK fonts
+        uses: RisingInIris2017/cjk-fonts-action@v1
+
       - name: Update sponsors
         run: npm run build
         env:
