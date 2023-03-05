@@ -24,8 +24,8 @@ jobs:
         uses: actions/cache@v3
         id: cache-fonts
         with:
-          path: ~/share/fonts/LXGWWenKai/
-          key: font-lxgw-wenkai-${{ runner.os }}
+          path: $HOME/share/fonts/LXGWWenKai/
+          key: font-lxgw-wenkai
 
       - name: Download fonts
         if: steps.cache-fonts.outputs.cache-hit != 'true'
@@ -36,7 +36,7 @@ jobs:
           fileName: "*.ttf"
           tarBall: false
           zipBall: false
-          out-file-path: ~/share/fonts/LXGWWenKai/
+          out-file-path: $HOME/share/fonts/LXGWWenKai/
 
       - name: Install fonts
         run: sudo fc-cache -fv
